@@ -1,0 +1,11 @@
+<map id="lib/framebuffer.h" name="lib/framebuffer.h">
+<area shape="rect" id="node2" href="$container_8h.html" title="lib/container.h" alt="" coords="201,80,303,107"/>
+<area shape="rect" id="node3" href="$bmp_8c.html" title="lib/bmp.c" alt="" coords="5,155,80,181"/>
+<area shape="rect" id="node10" href="$framebuffer_8c.html" title="lib/framebuffer.c" alt="" coords="327,80,443,107"/>
+<area shape="rect" id="node4" href="$bmp_8h.html" title="lib/bmp.h" alt="" coords="379,155,453,181"/>
+<area shape="rect" id="node5" href="$text_8c.html" title="lib/text.c" alt="" coords="388,229,460,256"/>
+<area shape="rect" id="node6" href="$main_8c.html" title="main.c" alt="" coords="303,229,364,256"/>
+<area shape="rect" id="node7" href="$container_8c.html" title="lib/container.c" alt="" coords="201,155,303,181"/>
+<area shape="rect" id="node8" href="$text_8h.html" title="lib/text.h" alt="" coords="104,155,176,181"/>
+<area shape="rect" id="node9" href="$webrequest_8c.html" title="lib/webrequest.c" alt="" coords="81,229,199,256"/>
+</map>

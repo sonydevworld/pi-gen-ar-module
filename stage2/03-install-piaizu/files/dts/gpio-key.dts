@@ -1,0 +1,30 @@
+/dts-v1/;
+
+/plugin/;
+
+    / {
+       compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+
+       fragment@0 {
+          target-path = "/soc";
+          __overlay__ {
+             keypad: piaizu_keys {
+                compatible = "gpio-keys";
+                #address-cells = <1>;
+                #size-cells = <0>;
+
+                button@21 {
+                   label = "right key";
+                   linux,code = <106>;
+                   gpios = <&gpio 21 1>;
+                };
+                button@10 {
+                   label = "left left";
+                   linux,code = <105>;
+                   gpios = <&gpio 10 1>;
+                };
+
+             };
+          };
+       };
+    };

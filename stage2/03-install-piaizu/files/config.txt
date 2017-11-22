@@ -1,0 +1,31 @@
+overscan_left=0
+overscan_right=0
+overscan_top=0
+overscan_bottom=0
+
+framebuffer_width=419
+framebuffer_height=138
+
+#framebuffer_width=800
+#framebuffer_height=600
+
+dtparam=audio=off
+dtparam=i2c_arm=off
+dtparam=spi=off
+
+core_freq=250
+dtoverlay=pi3-disable-bt
+dtoverlay=vga666
+dtoverlay=i2c-gpio,i2c-gpio_sda=23,i2c_gpio_scl=24
+dtoverlay=gpio-key
+
+enable_dpi_lcd=1
+dpi_group=2
+dpi_mode=87
+display_default_lcd=1  #1=LMX-001, 0=HDMI <-should change framebuffer size same time.
+
+dpi_output_format=458783
+hdmi_timings=419 0 25 14 61 138 0 58 3 69 0 0 0 120 0 16666666 8
+
+start_x=1
+gpu_mem=256

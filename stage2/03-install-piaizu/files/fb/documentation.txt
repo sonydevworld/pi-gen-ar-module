@@ -1,0 +1,176 @@
+/*! \mainpage PiAIZU webserver
+ * <A HREF="lmxindex.html">LMX interactive page</A>
+ *
+ * ```
+ * Build date: Tue Nov 21 16:36:36 CET 2017
+ * Git describe: 2017-07-05-raspbian-jessie-6-g68cdf34
+ * ```
+ *
+ * \section intro_sec Introduction
+ *
+ * You have now successfully connected to the Raspberry PIs webserver.
+ * This documentation has been compiled with Doxygen and will describe how to use
+ * this Raspberry PI to control the Sony LMX-001 display. This setup is called the PiAIZU.
+ *
+ * When this PiAIZU is powered up it boots Linux (Raspbian lite) and an sample application is started. This app will display an animation in the LMX-001 and some basic information.
+ * The PiAIZU will also act as a WiFi access point and since you can read this document you have probably already successfully connected to it.
+ *
+ * This setup has all the nescessary tools and compilers pre-installed to be able to both edit and recompile this sample application.
+ *
+ * A few useful tools that has been added:
+ * * GCC
+ * * Python
+ * * sshfs
+ * * gdb
+ * * gdb-server
+ *
+ * \subsection access How to access the Raspberry
+ * The Raspberry Pi has a SSH server running and it has been configured with a static IP address that is 192.168.1.1
+ * To connect to the Raspberry Pi via ssh:
+ *
+ * **In Linux**
+ *
+ * Open a terminal and type:
+ *
+ * ```
+ * ssh pi@192.168.1.1
+ * ```
+ *
+ * **In Windows**
+ *
+ * Download and install Putty and setup a SSH connection.
+ *
+ * **Password is: raspberry**
+ *
+ * \subsection about_sw About the sample application
+ * The sample application and library provided with source code and resides in:
+ *
+ *     /home/pi/lmx_example
+ *
+ * It basically starts with memory mapping the framebuffer:
+ *
+ *     /dev/fb0
+ *
+ * and then a software layer is put over that to enable the user to specifiy layers or containers that the user then can put various
+ * kind of information in. This could be text, shapes like lines or dots, or fill the container with a bitmap image.
+ * Each container has x,y coordinate together with height and width. Each container can be set to be visible or hidden runtime.
+ *
+ * To start working the framebuffer needs to be mapped to memory, memory has to be allocated for the containers and some
+ * initialisation has do be done, this is done by calling the function:
+ *
+ * ```
+ * container_new()
+ * ```
+ *
+ * In the first version the containers are statically defined before compile time. This is done in the file: define_containers.h
+ * Every time a containers contents has been updated the whole container system needs to be compiled before the actual change is
+ * displayed on the screen. This is done by calling the funcion:
+ * ```
+ * container_compile()
+ * ```
+ * To close the system the funcion
+ * ```
+ * container_close()
+ * ```
+ * must be called to free all the allocated memory and to unmap the framebuffer. Similar approach has been used in the text/font system regarding init and close.
+ *
+ * There are various function to add or manipulate the contents of the containers. The handle for each container is basically an integer that is an index that points out which container it is in the array or container_t in define_containers.h.
+ *
+ * Functions to decode .bmp files has been implemented and tested on both 24 bit and 32 bit bmp files. The difference is basically that in the 32 bit case you have RGBA and in 24 bit it's only RGB information stored
+ * The 'A' in RGBA is not being used at the moment.
+ *
+ * A simple font has been added that supports uppercase and lower case letters together with numbers and only a few special characters.
+ *
+ * \subsection buttons_sec Buttons
+ *
+ * The shield connected to the Raspberry has two small button, a lib has been written to be able to register events from these buttons.
+ * Try to click the buttons while running the sample application to see, for events has been registered that will be trigged depending on
+ * how long each key press is and on what button.
+ *
+ * \subsection web_interface Webinterface
+ *
+ * The sample application has an interface to be able to receive commands from the web. To evaluate this functionality enter <A HREF="lmxindex.html">LMX interactive page</A>.
+ * From here it is possible to send text and show a cross-hair cursor directly on the LMX-001 display.
+ *
+ * This functionality works like this:
+ *
+ * The web server (lighttpd) shows the <A HREF="lmxindex.html">LMX interactive page</A>. When a button is clicked, a cgi script is called.
+ * The source code of this script is available in the sample applicationlication folder under /hopme/pi/lmx_example/cgi-src.
+ * This cgi script will via a UNIX socket in /tmp/lmx.socket connect to the LMX sample application. The sample application can also reply with data.
+ *
+ * \section install_sec Compilation
+ *
+ * The application consist of a library and two sample applicationlications. One written in C and one written in Python, they are called main.c and main.py.
+ * Both the main.c and main.py use the provided library. The whole buildsystem can be configured by changing the settings in settings.mk.
+ * For development it can be convenient to to set the flag
+ * ```
+ * LDEXTRA=-Wl,-rpath,./lib/
+ * ```
+ * to tell the linker to use the locally built liblmx.so instead of the pre-installed one. This is done in settings.mk.
+ *
+ * The Makefile contains a few targets:
+ * - **all**   Will build the sample application
+ * - **clean** Will remove all build files, binaries, object files. Compiled documentation is not affected
+ * - **format** Runs clang-format on all source, this requires clang-format to be installed which it isn't on the Raspberry
+ * - **install** Installs the lmx binary into /usr/bin and activates startup scripts in init.d
+ * - **dbg** Compiles the all with extra prints for debugging, forces a frame to be printed around all containers
+ * - **doc** Will run Doxygen to recompile this documentation, requires Doxygen to be installed
+ * - **analyze** Runs scan-build to perform a static code analysis
+ *
+ *  It is possible to run this program on a Linux computer too. Then the sample applicationlication will
+ * use the PC:s framebuffer. On Ubuntu you will have to press Ctrl+Alt+F1 to get into a console. From there you can start the sample
+ * application and you will see the same output as if the program was used on the PiAIZU.
+ * Example app must first be recompiled for the x86 architecture for that to work, that is a matter of rebuilding it but doing that on
+ * the host computer.
+ *
+ * To simply rebuild the sample application, type:
+ * ```
+ * make
+ * ```
+ *
+ * to install your changes on the Raspberry Pi rootfs:
+ * ```
+ * sudo make install
+ * ```
+ *
+ * There are a few buildflags that can be added to get special functions:
+ *
+ * The following buildflag will mask out red and blue color, this is usefull when testing the software on a PC to get a
+ * picture more similar to the one in LMX-001.
+ * ```
+ * SETTING+=-DGREEN_MONOCHROME
+ * ```
+ *
+ * To convert a RGB BMP to green scale two methods are implemented, Average and Luminosity. To activate try one of the following:
+ * ```
+ * SETTING+=-DGRAYSCALE_LUMINOSITY
+ * SETTING+=-DGRAYSCALE_AVERAGE
+ * ```
+ *
+ * \section rebuild_sec Rebuilding Raspbian
+ *
+ * To update or add new packages to the Raspbian rootfs you either have to provide Internet to the Raspberry Pi or recompile the whole Raspbian.
+ *
+ * The modified Raspbian buildsystem is provided on the PiAIZU SD card image, it resides under:
+ * ```
+ * /home/pi/piaizu_"v2.0.0"
+ * ```
+ * the postfix is the git describe --tags output. In this directory you will find more information on how to rebuild the SD card image.
+ *
+ *
+ * Second option is to provide a Internet connection
+ * If you have two network connections on your PC you could most probably share your one Internet connection with while your WLAN is connected to the Raspberry Pi AP PiAIZU.
+ * To do that successfully you need to enable ip forwarding and setup your iptables for NAT. The Internet is full information on how to do this.
+ *
+ * \section changelog_sec Change log
+ * \version v2.1.0
+ *  - Minor changes to the container api
+ *  - Added python sample application
+ *  - Created a lib, (liblmx.so) of almost all sample application, leaving only main.c outside
+ * \version v2.0.0
+ *  - New webinterface
+ * \version v1.0.0
+ *  - First release
+ *
+ *
+ */
