@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<title>LMX send data text page</title>
+<body>
+<pre>
+This page will post data to the AR module kit connected to the Raspberry Pi.
+A webserver will receive the POST data and call the script: /var/www/html/cgi-bin/lmx.cgi
+
+This script will parse the received the data and if it's valid the data will be repacked into
+binary c structures. These structures will the be passed further through a UNIX socket.
+
+The lmx sample application will listen in the "other end" of the socket for incoming packages
+and handle the requests.
+</pre>
+
+<P>
+
+
+
+
+Send text to LMX-001
+<form action="/cgi-bin/lmx.cgi" method="post" target="lmxresponse" enctype="text/plain">
+  Data: <input type="text" name="LMX_POST_TEXT" value="A message for you">
+  <input type="submit" value="Submit">
+</form>
+<P>
+
+Show cross hair:
+<form action="/cgi-bin/lmx.cgi" method="post" target="lmxresponse" enctype="text/plain">
+  Data: <input type="text" name="LMX_POST_COORD" value="{&quot;coord&quot;:{&quot;x&quot;:5,&quot;y&quot;:50}}">
+  <input type="submit" value="Submit">
+
+</form>
+
+<P>
+
+<form action="/cgi-bin/lmx.cgi" method="post" target="lmxresponse" enctype="text/plain">
+<table style="width:200" border=1>
+  <TR>
+    Move the cross-hair cursor by using the buttons:<BR>
+    Container: <input type="text" name="LMX_POST_CONTAINER" value="11">
+  </TR>
+  <TR>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_UP_LEFT" data_value>Up left</button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_UP">Up   </button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_UP_RIGHT">Up right</button></TH>
+  </TR>
+  <TR>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_LEFT">Left    </button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_CLEAR">Clear    </button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_RIGHT">Right   </button></TH>
+  </TR>
+  <TR>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_DOWN_LEFT">Down left</button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_DOWN">Down</button></TH>
+        <TH><button name="LMX_POST_MOVE" value="MOVE_DOWN_RIGHT">Down right</button></TH>
+  </TR>
+
+
+  <BR>
+
+
+  <BR>
+
+</table>
+</form>
+
+<iframe width="50%" height="80" border="0" name="lmxresponse" id="lmxresponse"></iframe>
+<P>
+
+
+<P>
+The text below is a response from the LMX sample application on a regular GET request.
+<HR>
+<P>
+
+    <script src="jquery.js"></script>
+    <script>
+    $(function(){
+      $("#includedContent").load("cgi-bin/lmx.cgi");
+    });
+    </script>
+
+
+  <body>
+     <div id="includedContent"></div>
+  </body>
+
+
+</body>
+</html>

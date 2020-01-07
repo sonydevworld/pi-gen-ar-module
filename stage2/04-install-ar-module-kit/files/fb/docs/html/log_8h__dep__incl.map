@@ -1,0 +1,11 @@
+<map id="lib/log.h" name="lib/log.h">
+<area shape="rect" id="node2" href="$bmp_8c.html" title="lib/bmp.c" alt="" coords="5,80,80,107"/>
+<area shape="rect" id="node3" href="$container_8c.html" title="lib/container.c" alt="" coords="105,80,207,107"/>
+<area shape="rect" id="node4" href="$framebuffer_8c.html" title="lib/framebuffer.c" alt="" coords="231,80,347,107"/>
+<area shape="rect" id="node5" href="$fwatch_8c.html" title="lib/fwatch.c" alt="" coords="371,80,461,107"/>
+<area shape="rect" id="node6" href="$keys_8c.html" title="lib/keys.c" alt="" coords="485,80,563,107"/>
+<area shape="rect" id="node7" href="$text_8c.html" title="lib/text.c" alt="" coords="588,80,660,107"/>
+<area shape="rect" id="node8" href="$version_8c.html" title="lib/version.c" alt="" coords="685,80,777,107"/>
+<area shape="rect" id="node9" href="$webrequest_8c.html" title="lib/webrequest.c" alt="" coords="801,80,919,107"/>
+<area shape="rect" id="node10" href="$main_8c.html" title="main.c" alt="" coords="943,80,1004,107"/>
+</map>

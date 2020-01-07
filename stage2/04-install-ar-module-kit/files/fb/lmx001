@@ -1,0 +1,35 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:		lmx
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Should-Stop:
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	Start of LMX-001 example app
+# Description:		LMX-001 framebuffer app for PiAIZU
+#			Authenticator
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON_SBIN=/usr/bin/lmx
+DAEMON_CONF=
+NAME=lmx
+DESC="PiAIZU example app"
+PIDFILE=/run/lmx.pid
+
+[ -x "$DAEMON_SBIN" ] || exit 0
+
+
+case "$1" in
+  start)
+	cd /usr/bin/
+	/usr/bin/lmx &
+	;;
+  stop)
+	killall lmx
+	;;
+esac
+
+exit 0
