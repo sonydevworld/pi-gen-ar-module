@@ -29,7 +29,7 @@ install -m 755 files/lmx001_init.py ${ROOTFS_DIR}/usr/sbin
 cp -v files/rc.local ${ROOTFS_DIR}/etc/rc.local
 
 ############ Enable autologin #######################################
-sed -i 's\ExecStart=-/sbin/agetty --noclear %I $TERM\ExecStart=-/sbin/agetty --autologin pi --noclear %I $TERM\g' ${ROOTFS_DIR}/etc/systemd/system/getty.target.wants/getty@tty1.service
+sed -i 's\ExecStart=-/sbin/agetty --noclear %I $TERM\ExecStart=-/sbin/agetty --autologin pi --noclear %I $TERM\g' ${ROOTFS_DIR}/lib/systemd/system/getty@.service
 
 ############ Enable SSHD ############################################
 touch ${ROOTFS_DIR}/boot/ssh
