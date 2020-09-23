@@ -1,0 +1,26 @@
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2708", "brcm,bcm2835" ;
+
+	fragment@0 {
+		target = <&leds>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&ardisplay_pins>;
+		};
+	};
+
+	fragment@1 {
+		target = <&gpio>;
+		__overlay__ {
+			ardisplay_pins: ardisplay_pins {
+				brcm,pins = <0 1 2 3
+					     12 13 14 15 16 17 18 19>;
+				brcm,function = <6>; /* ALT2 */
+				brcm,pull = <0>; /* No Pull */
+			};
+		};
+	};
+};
