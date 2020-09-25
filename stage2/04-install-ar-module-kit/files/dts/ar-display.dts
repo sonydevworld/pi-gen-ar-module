@@ -16,7 +16,7 @@
 		target = <&gpio>;
 		__overlay__ {
 			ardisplay_pins: ardisplay_pins {
-				brcm,pins = <0 1 2 3
+				brcm,pins = <0 2 3
 					     12 13 14 15 16 17 18 19>;
 				brcm,function = <6>; /* ALT2 */
 				brcm,pull = <0>; /* No Pull */
