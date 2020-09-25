@@ -3,7 +3,7 @@
 import smbus
 import time
 
-bus = smbus.SMBus(3)    # 3 = /dev/i2c-3
+bus = smbus.SMBus(11)    # 11 = /dev/i2c-11
 
 DEVICE_ADDRESS_C = 0x47   #Common address(0x8E)=>1000 1110=>100 0111(0x47)
 DEVICE_ADDRESS_L = 0x38   #Address bit=L (0x70)=>0111 0000=>011 1000(0x38)
