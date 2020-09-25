@@ -56,14 +56,6 @@ dtparam=i2c_arm=off
 # Enable audio (loads snd_bcm2835)
 #dtparam=audio=on
 
-[pi4]
-# Enable DRM VC4 V3D driver on top of the dispmanx display stack
-dtoverlay=vc4-fkms-v3d
-max_framebuffers=2
-
-[all]
-#dtoverlay=vc4-fkms-v3da
-
 overscan_left=0
 overscan_right=0
 overscan_top=0
@@ -73,7 +65,7 @@ framebuffer_width=419
 framebuffer_height=138
 
 dtparam=audio=off
-dtparam=i2c_arm=on
+dtparam=i2c_arm=off
 dtparam=spi=off
 
 core_freq=250
