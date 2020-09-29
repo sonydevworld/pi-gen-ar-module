@@ -25,6 +25,7 @@ install -t ${ROOTFS_DIR}/home/pi/piaizu/dts files/dts/*
 ############ LMX-001 scripts ########################################
 install -m 755 files/brightness.py ${ROOTFS_DIR}/usr/sbin
 install -m 755 files/lmx001_init.py ${ROOTFS_DIR}/usr/sbin
+install -m 755 files/bt_init.sh ${ROOTFS_DIR}/usr/sbin
 
 cp -v files/rc.local ${ROOTFS_DIR}/etc/rc.local
 

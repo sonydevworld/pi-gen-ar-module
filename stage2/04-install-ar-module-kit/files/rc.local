@@ -19,4 +19,5 @@ fi
 
 
 /usr/sbin/lmx001_init.py
+/usr/sbin/bt_init.sh
 exit 0

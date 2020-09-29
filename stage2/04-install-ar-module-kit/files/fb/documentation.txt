@@ -2,8 +2,8 @@
  * <A HREF="lmxindex.html">LMX interactive page</A>
  *
  * ```
- * Build date: Tue Nov 21 16:36:36 CET 2017
- * Git describe: 2017-07-05-raspbian-jessie-6-g68cdf34
+ * Build date: Fri Sep 25 19:16:28 CEST 2020
+ * Git describe: 2020-02-13-raspbian-buster-24-gea6ab49
  * ```
  *
  * \section intro_sec Introduction

@@ -69,7 +69,6 @@ dtparam=i2c_arm=off
 dtparam=spi=off
 
 core_freq=250
-dtoverlay=disable-bt
 dtoverlay=ar-display
 dtoverlay=i2c-gpio,i2c-gpio_sda=23,i2c_gpio_scl=24
 dtoverlay=gpio-key
