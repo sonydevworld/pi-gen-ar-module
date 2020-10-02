@@ -79,7 +79,10 @@ dpi_mode=87
 display_default_lcd=1  #1=LMX-001, 0=HDMI <-should change framebuffer size same time.
 
 dpi_output_format=458783
-hdmi_timings=419 0 25 14 61 138 0 58 3 69 0 0 0 120 0 9600000 8
+dmi_timings=419 0 25 14 61 138 0 58 3 69 0 0 0 120 0 9600000 8
 
 start_x=1
 gpu_mem=256
+
+[pi4]
+dmi_timings=444 0 25 14 61 138 0 58 3 69 0 0 0 120 0 9600000 8
